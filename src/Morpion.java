@@ -39,7 +39,10 @@ public class Morpion {
             System.out.println("\n¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤\n" + "Tour numéro : " + tourEnCours +"\n¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤\n");
             lancerTourDeJeu(plateau, placementsJoueurs, joueurActif);
             joueurActif = !joueurActif;
-        } while(!verifierVictoire(placementsJoueurs, conditionsDeVictoire, tourEnCours) && tourEnCours < 9);
+        } while(!verifierVictoire(placementsJoueurs, conditionsDeVictoire) && tourEnCours < 9);
+        if(tourEnCours >= 9) {
+            System.out.print("Plateau rempli. ");
+        }
         System.out.println("Fin de partie.");
     }
 
@@ -81,7 +84,7 @@ public class Morpion {
         placementJoueurs[joueurActifPourArray] = arr;
     }
 
-    public static boolean verifierVictoire(Integer[][] placementJoueurs, Integer[][] conditionsDeVictoire, int tourEnCours) {
+    public static boolean verifierVictoire(Integer[][] placementJoueurs, Integer[][] conditionsDeVictoire) {
         //Positions sélectionnées par les joueurs
         Integer[] positionJoueurX = placementJoueurs[0];
         Integer[] positionJoueurO = placementJoueurs[1];
@@ -90,15 +93,9 @@ public class Morpion {
         for (Integer[] condition : conditionsDeVictoire) {
             if(Arrays.asList(positionJoueurX).containsAll(Arrays.asList(condition))) {
                 System.out.println("Victoire du joueur X.");
-                if(tourEnCours >= 9) {
-                    System.out.print("Plateau rempli. ");
-                }
                 return true;
             } else if(Arrays.asList(positionJoueurO).containsAll(Arrays.asList(condition))) {
                 System.out.println("Victoire du joueur 0.");
-                if(tourEnCours >= 9) {
-                    System.out.print("Plateau rempli. ");
-                }
                 return true;
             }
         }
